@@ -66,7 +66,7 @@ namespace ResumeScanner
 
             //  label1.Text = job_description_txtBox.Text;
 
-            get_wordDocument(filePath);
+            printFinalResult(filePath);
 
             //Change the upload button text after uploading the text
 
@@ -83,51 +83,20 @@ namespace ResumeScanner
 
 
 
-        private void get_wordDocument(string filepath)
+        private void printFinalResult(string filepath)
         {
-            //List of words from Resume
-            List<String> TestList1 = new List<String>();
-            //List of words from job descerition
-            List<string> TestList2 = new List<string>();
-
-            // foreach(word in job_description_txtBox.Text)
-
-            
 
 
             //Reading from word file
+           string totaltext= readWordFile(filepath);
 
-            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-            object miss = System.Reflection.Missing.Value;
-            //object path = @"C:\DOC\myDocument.docx";
-            object path = filepath;
-            object readOnly = true;
-            Microsoft.Office.Interop.Word.Document docs = word.Documents.Open(ref path, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
-            string totaltext = "";
-            for (int i = 0; i < docs.Paragraphs.Count; i++)
-            {
-                totaltext += " \r\n " + docs.Paragraphs[i + 1].Range.Text.ToString();
-
-                //Adding the word to the list for good comparsion
-                TestList1.Add(totaltext);
-            }
-     
-            docs.Close();
-            word.Quit();
-
-         
-
-
-          
-
-            string testdata = totaltext;
 
 
             string words = job_description_txtBox.Text.ToString();
 
           
             string wordsfix = cleanString(words);
-           string resume = cleanString(testdata);
+           string resume = cleanString(totaltext);
 
 
 
@@ -297,6 +266,28 @@ namespace ResumeScanner
         private void shuttonDownButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private string readWordFile(string FilePath)
+        {
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            object miss = System.Reflection.Missing.Value;
+            //object path = @"C:\DOC\myDocument.docx";
+            object path = FilePath;
+            object readOnly = true;
+            Microsoft.Office.Interop.Word.Document docs = word.Documents.Open(ref path, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
+            string totaltext = "";
+            for (int i = 0; i < docs.Paragraphs.Count; i++)
+            {
+                totaltext += " \r\n " + docs.Paragraphs[i + 1].Range.Text.ToString();
+
+            }
+
+            docs.Close();
+            word.Quit();
+
+            return totaltext;
+
         }
     }
 }
