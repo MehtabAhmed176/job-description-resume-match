@@ -98,16 +98,6 @@ namespace ResumeScanner
             string wordsfix = cleanString(words);
            string resume = cleanString(totaltext);
 
-
-
-
-
-
-
-
-        
-            
-            
             string[] resume_data = resume.Split().Select(x => x.TrimEnd(",.;:".ToCharArray())).ToArray();
             string[] words_data = wordsfix.Split().Select(x => x.TrimEnd(",.;:".ToCharArray())).ToArray();
 
@@ -119,7 +109,7 @@ namespace ResumeScanner
             for (int i=0;i< resume_data.Length;i++)
             {
 
-               // Console.WriteLine("Hi"+i);
+              
 
                 if (resume_data[i] != "")
                 {
@@ -136,8 +126,7 @@ namespace ResumeScanner
                 }
             }
 
-            Console.WriteLine("Size of the resume array is :"+cleanresumeFinal.Count);
-            Console.WriteLine("Size of the words array is :" + words_dataFinal.Count);
+
 
             //Final the common words between two Lists
 
@@ -147,43 +136,9 @@ namespace ResumeScanner
 
             var common = wordsList.Intersect(resumeList);
             var uncommon= wordsList.Except(resumeList);
-            //  List<object> listC = resumeList.FindAll(elem => wordsList.Contains(elem));
+          
 
-            foreach (string st in resumeList)
-            {
-                Console.WriteLine(st);
-            }
-
-            Console.WriteLine("===========Reume========");
-            foreach (string st in wordsList)
-            {
-                Console.WriteLine(st);
-            }
-
-            Console.WriteLine("===========Common========");
-
-            foreach (string st in common)
-            {
-                Console.WriteLine(st);
-            }
-
-
-            Console.WriteLine("===========Uncommon========");
-
-            foreach (string st in uncommon)
-            {
-                Console.WriteLine(st);
-            }
-
-
-
-
-            Console.WriteLine("Total common words"+ common.Count());
-            Console.WriteLine("Total Uncommon words" + uncommon.Count());
-
-           
-
-
+ 
 
             if (uncommon.Count()==0)
             {
